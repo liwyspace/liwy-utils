@@ -1,0 +1,17 @@
+{
+  "name": "liwy-utils",
+  "description": "JS工具类",
+  "main": "index.js",
+  "authors": [
+    "LIWY"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/liwyspace/liwy-utils",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
