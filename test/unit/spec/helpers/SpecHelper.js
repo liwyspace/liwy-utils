@@ -1,3 +1,6 @@
+/**
+ * 自定义断言
+ */
 beforeEach(function () {
   jasmine.addMatchers({
     toBePlaying: function () {
@@ -10,6 +13,17 @@ beforeEach(function () {
           }
         }
       };
+    },
+    toBeAddOne: function () {
+      return {
+        compare: function (actual, expected) {
+            console.log(actual + '#' + expected);
+          return {
+            pass: actual == (expected-1)
+          }
+        }
+      };
     }
   });
+
 });
