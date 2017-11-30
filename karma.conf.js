@@ -1,5 +1,6 @@
 // Karma configuration
 // Generated on Thu Nov 30 2017 09:51:23 GMT+0800 (中国标准时间)
+var path = require('path');
 
 module.exports = function(config) {
   config.set({
@@ -15,8 +16,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        'src/ES6Module.js',
-        'test/unit/spec/liwySpec.js'
+        'test/unit/index.js'
     ],
 
 
@@ -28,8 +28,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'src/**/*.js':['babel','coverage'],
-        'test/**/*.js':['babel']
+        'test/unit/index.js':['webpack','sourcemap']
     },
 
     //http://www.jianshu.com/p/a515fbbdd1b2
@@ -38,13 +37,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress','coverage'],
-
-    coverageReporter: {
-        type:'html',
-        dir:'test/unit/coverage'
-    },
-
+    reporters: ['progress','coverage-istanbul'],
 
     // web server port
     port: 9876,
@@ -74,6 +67,40 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    coverageIstanbulReporter: {
+        reports: [ 'html','text-summary' ],
+        dir:'test/unit/coverage',
+        fixWebpackSourcePaths: true,
+        skipFilesWithNoCoverage: true,
+        'report-config': {
+            html: {
+                subdir: 'html'
+            }
+        }
+    },
+    webpack: {
+        module: {
+            rules: [{
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            },{
+                test: /\.js$/,
+                enforce: "post",
+                include: path.resolve('src/'),
+                use: {
+                    loader: 'istanbul-instrumenter-loader',
+                    options: { esModules: true }
+                }
+            }]
+        }
+    },
+    webpackMiddleware: {
+      // webpack-dev-middleware configuration
+      // i. e.
+      stats: 'errors-only'
+    }
   })
 }

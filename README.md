@@ -61,7 +61,8 @@ babel-node xxx.js
         // 下面这个是不同阶段出现的es语法，包含不同的转码插件
         "stage-2"
     ],
-    // 下面这个选项是引用插件来处理代码的转换，transform-runtime用来处理全局函数和优化babel编译
+    // 下面这个选项是引用插件来处理代码的转换，transform-runtime用来处理全局函数和优化babel编译，但无法转换新的api
+    // transform-es2015-modules-umd可以将es6转换为通用模块，但是require好像没有用了
     "plugins": ["transform-runtime"],
     // 下面指的是在生成的文件中，不产生注释
     "comments": false,
@@ -92,10 +93,16 @@ npm install --save-dev babel-register
 ```
 注意如果出现不认识import的错误，请确认babel是否配置正确。
 
-#### karma设置es6配置
+#### karma设置es6配置(有些问题)
 安装karma-babel-preprocessor
 ```bash
 npm install --save-dev karma-babel-preprocessor
+```
+.babelrc配置
+```json
+{
+    "plugins": ["transform-es2015-modules-umd"],
+}
 ```
 修改karma配置文件karma.conf.js
 ```js
@@ -115,3 +122,8 @@ module.exports = function(config) {
   });
 };
 ```
+
+
+### karma通过karma-webpack设置es6解析
+
+

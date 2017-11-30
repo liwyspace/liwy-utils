@@ -21,6 +21,7 @@ describe("LIWY 测试程序", function() {
 
     it("test ES6Module", function() {
         expect(MathUtil.add(3,4)).toBeAddOne(8);
+        expect(MathUtil.sub(6,4)).toBe(2);
     });
 });
 //*/

@@ -2,6 +2,17 @@
  * ES6 模块写法
  */
 
+/**
+ * Converts `value` to a string.
+ *
+ * @since 1.0.0
+ * @param {*} value the value to convert.
+ * @return {String} Returns the converted string.
+ * @example
+ *
+ */
+
+
 /* 方法一
 function add(a, b) {
     return a + b;
